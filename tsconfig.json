@@ -30,7 +30,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/student/page.jsx", "app/student/layout.jsx", "app/student/Sidebar.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,11 +1,9 @@
-import React from 'react'
-
-const studentpage = () => {
+// app/student/page.tsx
+export default function student() {
   return (
     <div>
-      <h1>this is student page</h1>
+      <h1>Welcome! Click items on the left to navigate.</h1>
+      <h1>Welcome to the placement section of nit warangal</h1>1
     </div>
-  )
+  );
 }
-
-export default studentpage
