@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useState } from 'react'
 import Header from "../components/Header";
@@ -15,6 +16,7 @@ const Login = () => {
   const handlesubmit = async (e) => {
     e.preventDefault()
     try {
+      
       await signInWithEmailAndPassword(auth, Email, passowrd);
       alert('User logged in successfully')
       console.log("User logged in")

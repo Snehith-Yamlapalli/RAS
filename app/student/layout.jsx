@@ -1,12 +1,11 @@
 import Sidebar from "./Sidebar"
 import AuthGuard from './../Authguard';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body>
         <AuthGuard>
-        <div className="d-flex" style={{ minHeight: "100vh" }}>
+        <div className="d-flex" style={{ minHeight: "100vh",marginLeft:220 }}>
           <Sidebar />
           <div className="flex-grow-1">
             <main className="p-4">
@@ -15,7 +14,5 @@ export default function RootLayout({ children }) {
           </div>
         </div>
         </AuthGuard>
-      </body>
-    </html>
   );
 }

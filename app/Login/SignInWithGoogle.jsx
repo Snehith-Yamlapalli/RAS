@@ -15,23 +15,16 @@ const SignInWithGoogle = () => {
             console.log(result)
             if (result.user) {
                 const user = result.user;
-
                 try {
-                    console.log("Attempting to write user to Firestore...");
-
                     await setDoc(doc(db, "Users", user.uid), {
                         email: user.email,
                         firstname: user.displayName,
                         lastname: "",
                     });
-
-                    console.log("Firestore write successful!");
-
                     router.push("/student");   // Only runs if Firestore write succeeds
 
                 } catch (error) {
-                    console.error("🔥 Firestore write FAILED:", error);
-
+                    console.error("🔥 Firestore write FAILED:", error)
                     alert("Failed to save user data. Check console for details.");
                 }
             }
