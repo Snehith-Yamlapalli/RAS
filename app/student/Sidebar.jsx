@@ -6,8 +6,12 @@ import Image from "next/image";
 import { getAuth } from "firebase/auth";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { useRouter } from "next/navigation";
+import Spinner from "../components/Spinner";
+import { useState } from "react"
+
 
 export default function Sidebar() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -19,14 +23,19 @@ export default function Sidebar() {
     router.push("https://erp.nitw.ac.in/erp/secure/fw/selectsh")
   }
   const Logout = async () => {
+    setLoading(true)
+    console.log("set loading true called at LogOut")
     try {
       await auth.signOut();
+      setLoading(false)
       router.push("/")
     } catch (error) {
       alert(error.message);
       console.log("error occured")
     }
+
   }
+  if (loading) return <Spinner />
 
   return (
     <aside
@@ -49,15 +58,15 @@ export default function Sidebar() {
       </div>
 
       <nav className="nav nav-pills flex-column">
-        <Link href="/student/Stats" className={`nav-link ${isActive("/student/Stats") ? "active" : ""}`} style={{color:"black"}}>Stats</Link>
-        <Link href="/student/Notices" className={`nav-link ${isActive("/student/Notices") ? "active" : ""}`} style={{color:"black"}}>Notices</Link>
-        <Link href="/student/ManageResume" className={`nav-link ${isActive("/student/ManageResume") ? "active" : ""}`} style={{color:"black"}}>Manage Resume</Link>
-        <Link href="/student/PVF" className={`nav-link ${isActive("/student/PVF") ? "active" : ""}`} style={{color:"black"}}>Manage PVF's</Link>
-        <Link href="/student/Applications" className={`nav-link ${isActive("/student/Applications") ? "active" : ""}`} style={{color:"black"}}>Your Applications</Link>
-        <Link href="/student/ProForma" className={`nav-link ${isActive("/student/ProForma") ? "active" : ""}`} style={{color:"black"}}>ProForma</Link>
-        <Link href="/student/Calender" className={`nav-link ${isActive("/student/Calender") ? "active" : ""}`} style={{color:"black"}}>Calendar</Link>
-        <Link href="/student/WalkIn" className={`nav-link ${isActive("/student/WalkIn") ? "active" : ""}`} style={{color:"black"}}>WalkIn</Link>
-        <Link href="/student/ContactSpoc" className={`nav-link ${isActive("/student/ContactSpoc") ? "active" : ""}`} style={{color:"black"}}>Contact SPOC</Link>    
+        <Link href="/student/Stats" className={`nav-link ${isActive("/student/Stats") ? "active" : ""}`} style={{ color: "black" }}>Stats</Link>
+        <Link href="/student/Notices" className={`nav-link ${isActive("/student/Notices") ? "active" : ""}`} style={{ color: "black" }}>Notices</Link>
+        <Link href="/student/ManageResume" className={`nav-link ${isActive("/student/ManageResume") ? "active" : ""}`} style={{ color: "black" }}>Manage Resume</Link>
+        <Link href="/student/PVF" className={`nav-link ${isActive("/student/PVF") ? "active" : ""}`} style={{ color: "black" }}>Manage PVF's</Link>
+        <Link href="/student/Applications" className={`nav-link ${isActive("/student/Applications") ? "active" : ""}`} style={{ color: "black" }}>Your Applications</Link>
+        <Link href="/student/ProForma" className={`nav-link ${isActive("/student/ProForma") ? "active" : ""}`} style={{ color: "black" }}>ProForma</Link>
+        <Link href="/student/Calender" className={`nav-link ${isActive("/student/Calender") ? "active" : ""}`} style={{ color: "black" }}>Calendar</Link>
+        <Link href="/student/WalkIn" className={`nav-link ${isActive("/student/WalkIn") ? "active" : ""}`} style={{ color: "black" }}>WalkIn</Link>
+        <Link href="/student/ContactSpoc" className={`nav-link ${isActive("/student/ContactSpoc") ? "active" : ""}`} style={{ color: "black" }}>Contact SPOC</Link>
       </nav>
       <div className="btn-group dropup pt-3 px-5">
         <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"> <i className="bi bi-person"></i></button>

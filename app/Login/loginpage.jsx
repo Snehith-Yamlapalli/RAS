@@ -12,16 +12,25 @@ const Login = () => {
   const router = useRouter();
   const [Email, setEmail] = useState()
   const [passowrd, setpassword] = useState()
+  const [loading, setLoading] = useState(false)
 
   const handlesubmit = async (e) => {
     e.preventDefault()
     try {
-      
       await signInWithEmailAndPassword(auth, Email, passowrd);
-      alert('User logged in successfully')
-      console.log("User logged in")
+      if (Email.endsWith("taps@nitw.ac.in")) {
+        router.push("/TAPS")
+      }
+
+      if (!Email.endsWith("@student.nitw.ac.in")) {
+        setLoading(false)
+        alert("Login with Institute Email-ID")
+        return null;
+      }
+
       router.push("/student");
     } catch (error) {
+      console.log(error.message)
       alert(error)
     }
   }
@@ -31,7 +40,7 @@ const Login = () => {
 
   return (
     <form onSubmit={handlesubmit}>
-      <Header/>
+      <Header />
       <div className='row justify-content-center' style={{ backgroundColor: 'rgb(208, 214, 206)' }}>
         <div className='col-md-6 bg-red p-3 mb-5 d-flex flex-column gap-3 align-items-center'>
           <input type="email" placeholder='Email' className='form-control' onChange={(e) => { setEmail(e.target.value) }} />
@@ -41,7 +50,7 @@ const Login = () => {
         </div>
         <SignInWithGoogle />
       </div>
-      <Footer/>
+      <Footer />
     </form>
   )
 }

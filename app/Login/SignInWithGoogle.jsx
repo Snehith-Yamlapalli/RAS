@@ -6,31 +6,45 @@ import { auth, db } from './firebase'
 import { setDoc, doc } from 'firebase/firestore'
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react"
+import Spinner from '../components/Spinner';
 
 const SignInWithGoogle = () => {
+    const [loading, setLoading] = useState(false);
+    const [NitUser, setNitUser] = useState(false)
     const router = useRouter();
     function googlelogin() {
         const provider = new GoogleAuthProvider()
+
+        setLoading(true)
         signInWithPopup(auth, provider).then(async (result) => {
-            console.log(result)
+
             if (result.user) {
                 const user = result.user;
-                try {
-                    await setDoc(doc(db, "Users", user.uid), {
-                        email: user.email,
-                        firstname: user.displayName,
-                        lastname: "",
-                    });
-                    router.push("/student");   // Only runs if Firestore write succeeds
+                const UserEmail = user.email
 
-                } catch (error) {
-                    console.error("🔥 Firestore write FAILED:", error)
-                    alert("Failed to save user data. Check console for details.");
+                if(UserEmail.startsWith("taps@nitw")){
+                    router.push("/TAPS")
                 }
+
+                if (!UserEmail.endsWith("@student.nitw.ac.in")) {
+                    setLoading(false)
+                    alert("Login with Institute Email-ID")
+                    return null;
+                }
+                await setDoc(doc(db, "Users", user.uid), {
+                    email: user.email,
+                    firstname: user.displayName,
+                    lastname: "",
+                });
+                setLoading(false)
+                router.push("/student");
             }
 
         })
+
     }
+    if (loading) return <Spinner />
     return (
         <div>
             <p className='continue-p' style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>--Or continue with--</p>

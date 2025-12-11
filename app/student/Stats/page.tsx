@@ -26,12 +26,12 @@ const Stats = () => {
       <div className='container-fluid'>
         <div className="row">
           <h1>NIT-Warangal Placement Stats</h1>
-          <button className='btn btn-primary col-md-4 m-3' onClick={showintern}>Internship</button>
-          <button className='btn btn-primary col-md-4 m-3' onClick={showplacement}>Placement</button>
+          <button className='btn btn-secondary col-md-4 m-3' onClick={showintern} style={{backgroundColor:tag ? "rgb(39, 20, 20)" :""}}>Internship</button>
+          <button className='btn btn-secondary col-md-4 m-3' onClick={showplacement} style={{backgroundColor:!tag ? "rgb(39, 0, 0)" :""}}>Placement</button>
         </div>
         {tag && <div className='row'> {/* Internship  */}
           <h1>Internship {year} - {year + 1} </h1>
-          <h2>Stats</h2>
+          <h2 className="mt-3">Stats</h2>
           <div className="table-responsive">
             <table className='table table-hover table-bordered'>
               <thead>
